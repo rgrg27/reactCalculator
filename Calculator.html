@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html>
+  <script src="https://unpkg.com/react@16/umd/react.production.min.js"></script>
+  <script src="https://unpkg.com/react-dom@16/umd/react-dom.production.min.js"></script>
+  <script src="https://unpkg.com/babel-standalone@6.15.0/babel.min.js"></script>
+  <script src="https://unpkg.com/mathjs@7.0.2"></script>
+  <link rel="stylesheet" type="text/css" href="calculator.css">
+  <link rel="stylesheet" href='https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css'>
+  <body>
+  <title>Calculator</title>
+    <div id="mydiv"></div>
+    <div id="garg"></div>
+    <div id="root"></div>
+
+    <script type="text/babel">
+      class Button extends React.Component{
+        render(){
+            return(
+              <div>
+                <button className='number' onClick={this.props.onClick} isOperator={this.props.isOperat}>
+                  {this.props.value}
+                </button>
+              </div>
+            );
+        }
+      }
+      class NumberPad extends React.Component{
+        renderButton(i,isOperat){
+          return <Button value={i} isOperator={isOperat} onClick={()=>this.props.onClick(i,isOperat)}/>
+        }
+        render(){
+          return(
+            <div class="left-panel">
+              <div className="number-row">
+                {this.renderButton(1,false)}
+                {this.renderButton(2, false)}
+                {this.renderButton(3, false)}
+              </div>
+              <div className="number-row">
+                {this.renderButton(4, false)}
+                {this.renderButton(5, false)}
+                {this.renderButton(6, false)}
+              </div>
+              <div className="number-row">
+                {this.renderButton(7, false)}
+                {this.renderButton(8, false)}
+                {this.renderButton(9, false)}
+              </div>
+              <div className="number-row">
+                {this.renderButton(0, false)}
+                {this.renderButton(".", false)}
+                {this.renderButton("=", true)}
+              </div>
+            </div>
+          );
+        }
+      }
+      class OperatorPad extends React.Component{
+        renderButton(i,isOperat){
+          return <Button value={i} isOperator={isOperat} onClick={()=>this.props.onClick(i,isOperat)}/>
+        }
+        render(){
+          return(
+            <div className="right-panel">
+              <div className="operator-column">
+                {this.renderButton(`+`, true)}
+                {this.renderButton("-", true)}
+                {this.renderButton("x", true)}
+                {this.renderButton("/", true)}
+              </div>
+            </div>
+          );
+        }
+      }
+      class Calculator extends React.Component{
+        constructor(props){
+          super(props);
+          this.state = { currentString:"0", shouldReset: false};
+          this.handleClick = this.handleClick.bind(this);
+          this.clearExp = this.clearExp.bind(this);
+          this.clearLast = this.clearLast.bind(this);
+        }
+        handleClick(value,isOperat){
+          var currentValue = this.state.currentString.toString();
+          if(this.state.shouldReset){
+            if(!isOperat){
+              this.setState({currentString: value, shouldReset: false});
+            }
+            else{
+              const expValue = currentValue.substring(currentValue.lastIndexOf("=")+1,currentValue.length);
+              if(value==="="){
+              	this.setState({currentString: expValue, shouldReset: false});
+          	  }
+              else{
+              	this.setState({currentString: expValue+value, shouldReset: false});
+          	  }
+            }
+          }
+          else{
+            if(!isOperat){
+              if(currentValue==0){
+                this.setState({ currentString : value});
+              }
+              else{
+                this.setState({ currentString: currentValue+value.toString()});
+              }
+            }
+            else{
+              const updatedValue = this.updateExp(currentValue,value);
+              if(value==="="){             
+                const answer = this.calculateExp(updatedValue);
+                this.setState({ currentString: updatedValue+value.toString()+answer ,shouldReset: true});
+                console.log(answer);
+              }
+              else{
+                this.setState({ currentString: updatedValue+value.toString()});              
+              }   
+            }  
+          }        
+        }
+        clearExp(){
+          this.setState({ currentString: "0", shouldReset: false });
+        }
+        clearLast(){
+          var currentValue = this.state.currentString.toString();
+          var newValue = currentValue.slice(0, currentValue.length-1);
+          this.setState({ currentString: newValue, shouldReset: false });
+        }
+        calculateExp(exp){
+          var reg = new RegExp("x", "g");
+          var formatedExp = exp.replace(reg,"*");
+          return math.evaluate(formatedExp);
+        }
+        updateExp(exp,value){
+          const lastValue = exp.slice(-1);
+          var updatedValue = exp;
+          const operators = ["+" , "-" , "*" , "/" , "."];
+          if(operators.indexOf(lastValue) !== -1){
+            updatedValue = exp.slice(0,exp.length-1);
+          }
+          return updatedValue;
+        }
+        render(){
+          return(
+            <div id='calc'>
+                <div className='result'>
+                  <input readOnly={true} value={this.state.currentString}/>
+                </div>
+                <div>
+                  <OperatorPad onClick={(i,isOperat)=>this.handleClick(i,isOperat)}/>
+                  <NumberPad onClick={(i,isOperat)=>this.handleClick(i,isOperat)}/>
+                </div>
+                <div className='clear-button row'>
+                  <button onClick={this.clearExp}>AC</button>
+                </div>
+            </div>
+          );
+        }
+      }
+      ReactDOM.render(<Calculator/>, document.getElementById('garg'));
+    </script>
+  </body>
+</html>

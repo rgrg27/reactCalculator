@@ -1,0 +1,80 @@
+body {
+  font: 14px "Century Gothic", Futura, sans-serif;
+  margin: 20px;
+}
+
+ol, ul {
+  padding-left: 30px;
+}
+
+.number-row:after {
+  clear: both;
+  content: "";
+  display: inline-flex;
+  margin-top: 10px; 
+  padding-bottom: 10px;
+}
+.number-row{
+  display: inline-flex;
+}
+.operator-column{
+  display: block;
+}
+.operator-column .number{
+	margin-bottom:3px;
+  background: #3a38384d;
+}
+
+
+.status {
+  margin-bottom: 10px;
+}
+
+.number {
+  background: #eae5e5;
+  border: 1px solid #999;
+  float: left;
+  font-size: 24px;
+  font-weight: bold;
+  line-height: 34px;
+  height: 34px;
+  margin-right: 3px;
+  padding: 0;
+  text-align: center;
+  width:50px;
+}
+.left-panel{
+	float:left;
+	width:80%;
+}
+.right-panel{
+	float:right;
+	width:20%;
+}
+#calc{
+	width:200px;
+  margin:10px;
+}
+.square:focus {
+  outline: none;
+}
+.result input{
+	width:100%;
+	height:34px;
+	margin-bottom: 12px;
+	text-align: right;
+  font-size: 2vmax;
+}
+.kbd-navigation .square:focus {
+  background: #ddd;
+}
+
+.game {
+  display: flex;
+  flex-direction: row;
+}
+
+.game-info {
+  margin-left: 20px;
+}
+
