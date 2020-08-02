@@ -17,7 +17,7 @@
         render(){
             return(
               <div>
-                <button className='number' onClick={this.props.onClick} isOperator={this.props.isOperat}>
+                <button className='pad-button btn btn-secondary' onClick={this.props.onClick} isOperator={this.props.isOperat}>
                   {this.props.value}
                 </button>
               </div>
@@ -29,28 +29,21 @@
           return <Button value={i} isOperator={isOperat} onClick={()=>this.props.onClick(i,isOperat)}/>
         }
         render(){
+
           return(
-            <div class="left-panel">
-              <div className="number-row">
-                {this.renderButton(1,false)}
-                {this.renderButton(2, false)}
-                {this.renderButton(3, false)}
-              </div>
-              <div className="number-row">
-                {this.renderButton(4, false)}
-                {this.renderButton(5, false)}
-                {this.renderButton(6, false)}
-              </div>
-              <div className="number-row">
-                {this.renderButton(7, false)}
-                {this.renderButton(8, false)}
-                {this.renderButton(9, false)}
-              </div>
-              <div className="number-row">
-                {this.renderButton(0, false)}
-                {this.renderButton(".", false)}
-                {this.renderButton("=", true)}
-              </div>
+            <div class="number-pad">
+              {this.renderButton(1,false)}
+              {this.renderButton(2, false)}
+              {this.renderButton(3, false)}              
+              {this.renderButton(4, false)}
+              {this.renderButton(5, false)}
+              {this.renderButton(6, false)}
+              {this.renderButton(7, false)}
+              {this.renderButton(8, false)}
+              {this.renderButton(9, false)}
+              {this.renderButton(0, false)}
+              {this.renderButton(".", false)}
+              {this.renderButton("=", true)}
             </div>
           );
         }
@@ -61,13 +54,11 @@
         }
         render(){
           return(
-            <div className="right-panel">
-              <div className="operator-column">
+            <div className="operator-pad">
                 {this.renderButton(`+`, true)}
                 {this.renderButton("-", true)}
                 {this.renderButton("x", true)}
                 {this.renderButton("/", true)}
-              </div>
             </div>
           );
         }
@@ -142,16 +133,17 @@
         }
         render(){
           return(
-            <div id='calc'>
+            <div id='calc' class="container">
                 <div className='result'>
                   <input readOnly={true} value={this.state.currentString}/>
                 </div>
-                <div>
-                  <OperatorPad onClick={(i,isOperat)=>this.handleClick(i,isOperat)}/>
+                <div class="pad">
                   <NumberPad onClick={(i,isOperat)=>this.handleClick(i,isOperat)}/>
+                   <OperatorPad onClick={(i,isOperat)=>this.handleClick(i,isOperat)}/>
                 </div>
-                <div className='clear-button row'>
-                  <button onClick={this.clearExp}>AC</button>
+                <div className="clear-pad">
+                  <button className="btn btn-danger" onClick={this.clearExp}>AC</button>
+                  <button className="btn btn-danger" onClick={this.clearLast}>CE</button>
                 </div>
             </div>
           );
