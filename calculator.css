@@ -1,62 +1,39 @@
-body {
-  font: 14px "Century Gothic", Futura, sans-serif;
-  margin: 20px;
-}
 
-ol, ul {
-  padding-left: 30px;
-}
-
-.number-row:after {
-  clear: both;
-  content: "";
-  display: inline-flex;
-  margin-top: 10px; 
-  padding-bottom: 10px;
-}
-.number-row{
-  display: inline-flex;
-}
-.operator-column{
-  display: block;
-}
-.operator-column .number{
-	margin-bottom:3px;
-  background: #3a38384d;
-}
-
-
-.status {
+.pad{
+  display: grid;
+  grid-template-columns: 70% 25%;
+  grid-gap:5%;
   margin-bottom: 10px;
 }
+.number-pad{
+  display: grid;
+  align-content: center;
+  grid-template-columns: auto auto auto;
+  grid-gap: 10px;
+}
 
-.number {
-  background: #eae5e5;
-  border: 1px solid #999;
-  float: left;
-  font-size: 24px;
-  font-weight: bold;
-  line-height: 34px;
-  height: 34px;
-  margin-right: 3px;
-  padding: 0;
+.pad-button {
+  background-color: rgba(255, 255, 255, 0.8);
   text-align: center;
-  width:50px;
+  font-size: 30px;
+  width:100%;
 }
-.left-panel{
-	float:left;
-	width:80%;
+.operator-pad {
+  display: grid;
+  align-content: center;
+  grid-template-rows: auto auto auto auto;
+  grid-gap: 10px;
 }
-.right-panel{
-	float:right;
-	width:20%;
+.clear-pad {
+  display: grid;
+  align-content: center;
+  grid-template-columns: auto auto;
+  grid-gap: 10px;
 }
+
 #calc{
-	width:200px;
-  margin:10px;
-}
-.square:focus {
-  outline: none;
+	width:250px;
+  margin-top: 5%;
 }
 .result input{
 	width:100%;
@@ -65,16 +42,6 @@ ol, ul {
 	text-align: right;
   font-size: 2vmax;
 }
-.kbd-navigation .square:focus {
-  background: #ddd;
-}
 
-.game {
-  display: flex;
-  flex-direction: row;
-}
 
-.game-info {
-  margin-left: 20px;
-}
 
